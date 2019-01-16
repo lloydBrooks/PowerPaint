@@ -60,7 +60,6 @@ public class PowerPaintGUI extends JPanel {
      */
     private final DrawingPanel myCanvas;
    
-
     /**
      * The menu bar for power paint.
      */
@@ -70,6 +69,37 @@ public class PowerPaintGUI extends JPanel {
      * A list of Actions for the tool buttons.
      */
     private final List<Action> myActions;
+
+     /**
+     * main method to launch the program.
+     * 
+     * @param theArgs The command line arguments.
+     */
+    public static void main(final String[] theArgs) {
+        
+        try {
+            UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
+        } catch (final UnsupportedLookAndFeelException ex) {
+            ex.printStackTrace();
+        } catch (final IllegalAccessException ex) {
+            ex.printStackTrace();
+        } catch (final InstantiationException ex) {
+            ex.printStackTrace();
+        } catch (final ClassNotFoundException ex) {
+            ex.printStackTrace();
+        }
+        /* Turn off metal's use of bold fonts */
+        UIManager.put("swing.boldMetal", Boolean.FALSE);
+        
+        //start the program
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new PowerPaintGUI().start();
+            }
+        });
+    }
+    
     //Constructor
     /**
      * A basic constructor for PowerPaintGUI.
@@ -84,8 +114,7 @@ public class PowerPaintGUI extends JPanel {
         
         //create drawingPanel.
         myCanvas = new DrawingPanel();
-        
-        
+               
         //add drawing panel to center.
         add(myCanvas, BorderLayout.CENTER);
         
@@ -157,11 +186,9 @@ public class PowerPaintGUI extends JPanel {
     private JMenuBar createMenuBar() {
         final JMenuBar result = new JMenuBar();
         
-        
         //File Menu:
         final Action exit = new ExitAction("Quit", myWindow);
         final ClearAction clear = new ClearAction("Clear", myCanvas);
-        
         
         final FileMenu file = new FileMenu(clear, exit);
         result.add(file);
@@ -198,34 +225,6 @@ public class PowerPaintGUI extends JPanel {
         
     }
     
-    /**
-     * main method to launch the program.
-     * 
-     * @param theArgs The command line arguments.
-     */
-    public static void main(final String[] theArgs) {
-        
-        try {
-            UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
-        } catch (final UnsupportedLookAndFeelException ex) {
-            ex.printStackTrace();
-        } catch (final IllegalAccessException ex) {
-            ex.printStackTrace();
-        } catch (final InstantiationException ex) {
-            ex.printStackTrace();
-        } catch (final ClassNotFoundException ex) {
-            ex.printStackTrace();
-        }
-        /* Turn off metal's use of bold fonts */
-        UIManager.put("swing.boldMetal", Boolean.FALSE);
-        
-        //start the program
-        EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new PowerPaintGUI().start();
-            }
-        });
-    }
+   
 
 }
